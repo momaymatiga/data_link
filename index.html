@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSEE Concrete - หน้ารวมลิงก์</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content {
+            padding: 50px 40px;
+        }
+
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+        }
+
+        .link-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .link-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .link-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .link-icon {
+            width: 24px;
+            height: 24px;
+            fill: #e53e3e;
+        }
+
+        .link-description {
+            color: #718096;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .remark {
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #e53e3e;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+
+        .remark strong {
+            color: #e53e3e;
+        }
+
+        .link-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+        }
+
+        .link-button:hover {
+            background: linear-gradient(135deg, #c53030, #a02828);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(229, 62, 62, 0.4);
+        }
+
+        .external-icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px 40px;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+            color: #718096;
+        }
+
+        @media (max-width: 768px) {
+            .link-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .link-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Data Link</h1>
+            <p class="subtitle">หน้ารวมลิงก์เข้าใช้งาน SharePoint</p>
+        </div>
+
+        <div class="content">
+            <div class="link-grid">
+                <div class="link-card">
+                    <h3 class="link-title">
+                        <svg class="link-icon" viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                        </svg>
+                        FMD Monthly Meeting
+                    </h3>
+                    <div class="remark">
+                        <strong>หมายเหตุ:</strong> ประชุมประจำเดือน FMD & CEO
+                    </div>
+                    <a href="https://inseegroup.sharepoint.com/:f:/s/CLMOFilesShare/EndanVqw6E5OrVBSGIDCMJwBs82MIDJAk1SeO-KRL7K-WQ?e=4gg37s" 
+                       class="link-button" target="_blank">
+                        เข้าใช้งาน
+                        <svg class="external-icon" viewBox="0 0 24 24">
+                            <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="link-card">
+                    <h3 class="link-title">
+                        <svg class="link-icon" viewBox="0 0 24 24">
+                            <path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.24-1.61 8.06-4.09l-2.6-1.53C16.17 17.98 14.21 19 12 19z"/>
+                        </svg>
+                        Budget
+                    </h3>
+                    <div class="remark">
+                        <strong>หมายเหตุ:</strong> การเบิก Budget Community Relations and Representation
+                    </div>
+                    <a href="https://inseegroup.sharepoint.com/:x:/s/CLMOFilesShare/EfGWzevkloxHi4arhBl0bqEBUmtQl-vzSXFISlgcM8nU9g?e=lrMbCB" 
+                       class="link-button" target="_blank">
+                        เข้าใช้งาน
+                        <svg class="external-icon" viewBox="0 0 24 24">
+                            <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="link-card">
+                    <h3 class="link-title">
+                        <svg class="link-icon" viewBox="0 0 24 24">
+                            <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
+                        </svg>
+                        ผู้เข้าร่วมสัมมนา ณ.โรงแรม แทมมารินด์ การ์เด้น ระยอง
+                    </h3>
+                    <div class="remark">
+                        <strong>หมายเหตุ:</strong> กำหนดจัดงาน วันที่ 08 กรกฎาคม 2025
+                    </div>
+                    <a href="https://inseegroup.sharepoint.com/:x:/s/CLMOFilesShare/EdIKRJ071jZGqUwyqzaYJNgB34YF03lvXvQSLgOawWN80A?e=WSxY2w&CID=49E70CF2-5E01-4ECC-9DEE-323780B88F2B&wdLOR=cEC208DBF-DC15-4691-B524-6B4A5011380D" 
+                       class="link-button" target="_blank">
+                        เข้าใช้งาน
+                        <svg class="external-icon" viewBox="0 0 24 24">
+                            <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="link-card">
+                    <h3 class="link-title">
+                        <svg class="link-icon" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        ระบุสถานที่ตรวจสุขภาพ
+                    </h3>
+                    <div class="remark">
+                        <strong>หมายเหตุ:</strong> กำหนดส่ง วันที่ 05 กรกฎาคม 2025
+                    </div>
+                    <a href="https://inseegroup.sharepoint.com/:x:/s/CLMOFilesShare/ER-F71W55rlCpoZxuxWMutwBLvkhYWplMCv1suJr_KjMhw?e=1YGrx2&CID=E7B1D835-C15C-4C3D-B6C1-27A4FDBCCC5E&wdLOR=c2E00B463-6F80-4E31-BB55-6F8D8BD416F6" 
+                       class="link-button" target="_blank">
+                        เข้าใช้งาน
+                        <svg class="external-icon" viewBox="0 0 24 24">
+                            <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+        </div>
+    </div>
+</body>
+</html>
