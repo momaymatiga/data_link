@@ -19,7 +19,7 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
@@ -72,10 +72,62 @@
             padding: 50px 40px;
         }
 
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 30px;
+            padding: 20px 30px;
+            border-left: 5px solid #e53e3e;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-title:hover {
+            background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title::after {
+            content: '▼';
+            font-size: 1.2rem;
+            color: #e53e3e;
+            transition: transform 0.3s ease;
+        }
+
+        .section-title.collapsed::after {
+            transform: rotate(-90deg);
+        }
+
         .link-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .link-grid.expanded {
+            max-height: 2000px;
+            opacity: 1;
         }
 
         .link-card {
@@ -173,6 +225,19 @@
             fill: currentColor;
         }
 
+        .placeholder-card {
+            background: #f8f9fa;
+            border: 2px dashed #e2e8f0;
+            text-align: center;
+            color: #718096;
+            font-size: 1.2rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+
         .footer {
             background: #f8f9fa;
             padding: 30px 40px;
@@ -206,6 +271,11 @@
             .link-card {
                 padding: 20px;
             }
+
+            .section-title {
+                font-size: 1.6rem;
+                padding: 15px 20px;
+            }
         }
     </style>
 </head>
@@ -217,81 +287,119 @@
         </div>
 
         <div class="content">
-            <div class="link-grid">
-                <div class="link-card">
-                    <h3 class="link-title">
-                        <svg class="link-icon" viewBox="0 0 24 24">
-                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-                        </svg>
-                        FMD Monthly Meeting
-                    </h3>
-                    <div class="remark">
-                        <strong>หมายเหตุ:</strong> ประชุมประจำเดือน FMD & CEO
+            <!-- KAM Section -->
+            <div class="section">
+                <h2 class="section-title collapsed" onclick="toggleSection('kam')">KAM</h2>
+                <div class="link-grid" id="kam">
+                    <div class="link-card">
+                        <h3 class="link-title">
+                            <svg class="link-icon" viewBox="0 0 24 24">
+                                <path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.24-1.61 8.06-4.09l-2.6-1.53C16.17 17.98 14.21 19 12 19z"/>
+                            </svg>
+                            Budget
+                        </h3>
+                        <div class="remark">
+                            <strong>หมายเหตุ:</strong> การเบิก Budget Community Relations and Representation
+                        </div>
+                        <a href="https://inseegroup.sharepoint.com/:x:/s/CLMOFilesShare/EfGWzevkloxHi4arhBl0bqEBUmtQl-vzSXFISlgcM8nU9g?e=lrMbCB" 
+                           class="link-button" target="_blank">
+                            เข้าใช้งาน
+                            <svg class="external-icon" viewBox="0 0 24 24">
+                                <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                            </svg>
+                        </a>
                     </div>
-                    <a href="https://inseegroup.sharepoint.com/:f:/s/CLMOFilesShare/EndanVqw6E5OrVBSGIDCMJwBs82MIDJAk1SeO-KRL7K-WQ?e=4gg37s" 
-                       class="link-button" target="_blank">
-                        เข้าใช้งาน
-                        <svg class="external-icon" viewBox="0 0 24 24">
-                            <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
-                        </svg>
-                    </a>
-                </div>
 
-                <div class="link-card">
-                    <h3 class="link-title">
-                        <svg class="link-icon" viewBox="0 0 24 24">
-                            <path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.24-1.61 8.06-4.09l-2.6-1.53C16.17 17.98 14.21 19 12 19z"/>
-                        </svg>
-                        Budget
-                    </h3>
-                    <div class="remark">
-                        <strong>หมายเหตุ:</strong> การเบิก Budget Community Relations and Representation
+                    <div class="link-card">
+                        <h3 class="link-title">
+                            <svg class="link-icon" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            ระบุสถานที่ตรวจสุขภาพ
+                        </h3>
+                        <div class="remark">
+                            <strong>หมายเหตุ:</strong> Completed
+                        </div>
+                        <a href="https://inseegroup.sharepoint.com/:x:/s/CLMOFilesShare/ER-F71W55rlCpoZxuxWMutwBLvkhYWplMCv1suJr_KjMhw?e=1YGrx2&CID=E7B1D835-C15C-4C3D-B6C1-27A4FDBCCC5E&wdLOR=c2E00B463-6F80-4E31-BB55-6F8D8BD416F6" 
+                           class="link-button" target="_blank">
+                            เข้าใช้งาน
+                            <svg class="external-icon" viewBox="0 0 24 24">
+                                <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                            </svg>
+                        </a>
                     </div>
-                    <a href="https://inseegroup.sharepoint.com/:x:/s/CLMOFilesShare/EfGWzevkloxHi4arhBl0bqEBUmtQl-vzSXFISlgcM8nU9g?e=lrMbCB" 
-                       class="link-button" target="_blank">
-                        เข้าใช้งาน
-                        <svg class="external-icon" viewBox="0 0 24 24">
-                            <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
-                        </svg>
-                    </a>
-                </div>
 
-                <div class="link-card">
-                    <h3 class="link-title">
-                        <svg class="link-icon" viewBox="0 0 24 24">
-                            <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
-                        </svg>
-                        ผู้เข้าร่วมสัมมนา ณ.โรงแรม แทมมารินด์ การ์เด้น ระยอง
-                    </h3>
-                    <div class="remark">
-                        <strong>หมายเหตุ:</strong> กำหนดจัดงาน วันที่ 16 กรกฎาคม 2025
+                    <div class="link-card">
+                        <h3 class="link-title">
+                            <svg class="link-icon" viewBox="0 0 24 24">
+                                <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
+                            </svg>
+                            ผู้เข้าร่วมสัมมนา ณ.โรงแรม แทมมารินด์ การ์เด้น ระยอง
+                        </h3>
+                        <div class="remark">
+                            <strong>หมายเหตุ:</strong> กำหนดจัดงาน วันที่ 16 กรกฎาคม 2025
+                        </div>
+                        <a href="https://inseegroup.sharepoint.com/:x:/s/CLMOFilesShare/EdIKRJ071jZGqUwyqzaYJNgB34YF03lvXvQSLgOawWN80A?e=WSxY2w&CID=49E70CF2-5E01-4ECC-9DEE-323780B88F2B&wdLOR=cEC208DBF-DC15-4691-B524-6B4A5011380D" 
+                           class="link-button" target="_blank">
+                            เข้าใช้งาน
+                            <svg class="external-icon" viewBox="0 0 24 24">
+                                <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                            </svg>
+                        </a>
                     </div>
-                    <a href="https://inseegroup.sharepoint.com/:x:/s/CLMOFilesShare/EdIKRJ071jZGqUwyqzaYJNgB34YF03lvXvQSLgOawWN80A?e=WSxY2w&CID=49E70CF2-5E01-4ECC-9DEE-323780B88F2B&wdLOR=cEC208DBF-DC15-4691-B524-6B4A5011380D" 
-                       class="link-button" target="_blank">
-                        เข้าใช้งาน
-                        <svg class="external-icon" viewBox="0 0 24 24">
-                            <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
-                        </svg>
-                    </a>
-                </div>
 
-                <div class="link-card">
-                    <h3 class="link-title">
-                        <svg class="link-icon" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                        ระบุสถานที่ตรวจสุขภาพ
-                    </h3>
-                    <div class="remark">
-                        <strong>หมายเหตุ:</strong> Completed
+                    <div class="link-card">
+                        <h3 class="link-title">
+                            <svg class="link-icon" viewBox="0 0 24 24">
+                                <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
+                            </svg>
+                            ผู้เข้าร่วมสัมมนา ณ.โรงแรม สุราษฎร์ธานี
+                        </h3>
+                        <div class="remark">
+                            <strong>หมายเหตุ:</strong> รอข้อมูลเพิ่มเติม
+                        </div>
+                        <a href="#" class="link-button" onclick="alert('รอข้อมูลเพิ่มเติม'); return false;">
+                            รอข้อมูล
+                            <svg class="external-icon" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                        </a>
                     </div>
-                    <a href="https://inseegroup.sharepoint.com/:x:/s/CLMOFilesShare/ER-F71W55rlCpoZxuxWMutwBLvkhYWplMCv1suJr_KjMhw?e=1YGrx2&CID=E7B1D835-C15C-4C3D-B6C1-27A4FDBCCC5E&wdLOR=c2E00B463-6F80-4E31-BB55-6F8D8BD416F6" 
-                       class="link-button" target="_blank">
-                        เข้าใช้งาน
-                        <svg class="external-icon" viewBox="0 0 24 24">
-                            <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
-                        </svg>
-                    </a>
+                </div>
+            </div>
+
+            <!-- Management Section -->
+            <div class="section">
+                <h2 class="section-title collapsed" onclick="toggleSection('management')">Management</h2>
+                <div class="link-grid" id="management">
+                    <div class="link-card">
+                        <h3 class="link-title">
+                            <svg class="link-icon" viewBox="0 0 24 24">
+                                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                            </svg>
+                            FMD Monthly Meeting
+                        </h3>
+                        <div class="remark">
+                            <strong>หมายเหตุ:</strong> ประชุมประจำเดือน FMD & CEO
+                        </div>
+                        <a href="https://inseegroup.sharepoint.com/:f:/s/CLMOFilesShare/EndanVqw6E5OrVBSGIDCMJwBs82MIDJAk1SeO-KRL7K-WQ?e=4gg37s" 
+                           class="link-button" target="_blank">
+                            เข้าใช้งาน
+                            <svg class="external-icon" viewBox="0 0 24 24">
+                                <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADMIN Section -->
+            <div class="section">
+                <h2 class="section-title collapsed" onclick="toggleSection('admin')">ADMIN</h2>
+                <div class="link-grid" id="admin">
+                    <div class="link-card placeholder-card">
+                        รอข้อมูล
+                    </div>
                 </div>
             </div>
         </div>
@@ -299,5 +407,20 @@
         <div class="footer">
         </div>
     </div>
+
+    <script>
+        function toggleSection(sectionId) {
+            const grid = document.getElementById(sectionId);
+            const title = document.querySelector(`[onclick="toggleSection('${sectionId}')"]`);
+            
+            if (grid.classList.contains('expanded')) {
+                grid.classList.remove('expanded');
+                title.classList.add('collapsed');
+            } else {
+                grid.classList.add('expanded');
+                title.classList.remove('collapsed');
+            }
+        }
+    </script>
 </body>
 </html>
